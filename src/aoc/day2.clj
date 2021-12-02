@@ -1,6 +1,6 @@
 (ns aoc.day2
   (:require
-   [clojure.string :as str]))
+   [aoc.helpers :refer [read-input-lines]]))
 
 (defn parse-line [line]
   (let [[direction val] (str/split line #" ")]
@@ -10,22 +10,13 @@
        "up" :up)
      (Integer/parseInt val)]))
 
-(defn read-input [filename]
-  (->> filename
-       slurp
-       str/split-lines
-       (map parse-line)))
-
-(comment
-  (read-input "input_2_test.txt"))
-
 ;; part 1
 (defn move-step [[pos depth] [dir val]]
   (case dir
-    :forward [(+ pos val) depth]
-    :down [pos (+ depth val)]
-    :up [pos (- depth val)]))
-]
+    forward [(+ pos val) depth]
+    down [pos (+ depth val)]
+    up [pos (- depth val)]))
+
 (->> "input_2.txt"
      read-input
      (reduce move-step [0 0])

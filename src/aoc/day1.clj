@@ -1,37 +1,19 @@
 (ns aoc.day1
   (:require
-   [clojure.string :as str]))
-
-(defn read-input
-  [filename]
-  (->> (slurp filename)
-       str/split-lines
-       (map #(Integer/parseInt %))))
+   [aoc.helpers :refer [read-input-lines]]))
 
 ;; part 1
-(defn changes [coll]
-  (->> coll
-       (partition 2 1)
-       (map (fn [[v1 v2]] (- v2 v1)))))
-
-(->> "input_1.txt"
-    read-input
-    changes
-    (filter pos?)
+(->> (read-input-lines 1 parse-long)
+     (partition 2 1)
+     (map (partial apply -))
+     (filter neg?)
      count)
 
 ;; part 2
-(defn sliding-window-3 [coll]
-  (->> coll
-       (partition 3 1)
-       (map #(reduce + %))))
-
-(comment
-  (sliding-window-3 [1 2 3 4 5]))
-
-(->> "input_1.txt"
-     read-input
-     sliding-window-3
-     changes
-     (filter pos?)
+(->> (read-input-lines 1 parse-long)
+     (partition 3 1)
+     (map (partial reduce +))
+     (partition 2 1)
+     (map (partial apply -))
+     (filter neg?)
      count)
