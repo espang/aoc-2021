@@ -1,9 +1,12 @@
-(ns aoc.helpers)
+(ns aoc.helpers
+  (:require
+   [clojure.string :as str]))
 
-(defn read-input
+(defn read-input-lines
   ([day parse-line]
-   (read-input day parse-line false))
+   (read-input-lines day parse-line false))
   ([day parse-line is-test]
    (->> (str "input_" day (when is-test "_test") ".txt")
         slurp
+        str/split-lines
         (map parse-line))))
