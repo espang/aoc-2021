@@ -36,10 +36,10 @@
   (loop [q (conj (clojure.lang.PersistentQueue/EMPTY) [row col])
          seen #{}
          count 0]
-    (println (seq q) seen count)
     (if (empty? q)
       count
-      (let [e (peek q)
+      (let [e         (peek q)
+            [row col] e
             neighbours (->> [[-1 0] [1 0] [0 -1] [0 1]]
                             (map (fn [[drow dcol]] [(+ row drow) (+ col dcol)]))
                             (filter #(> 9 (value-at % matrix))))]
@@ -51,3 +51,21 @@
 
 (comment 
   (basin-size [0 9] (vec (read-input-lines 9 parse-line true))))
+
+(defn part2 [matrix]
+  (let [max-row (count matrix)
+        max-col (count (first matrix))]
+    (->> (for [row (range max-row)
+               col (range max-col)
+               :when (low-point [row col] matrix)]
+           [row col])
+         (map (fn [coord] (basin-size coord matrix)))
+         (sort)
+         (reverse)
+         (take 3)
+         (reduce * 1))))
+
+(comment
+  (part2 (vec (read-input-lines 9 parse-line true)))
+  (part2 (vec (read-input-lines 9 parse-line))))
+
