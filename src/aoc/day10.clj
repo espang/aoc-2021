@@ -1,7 +1,7 @@
 (ns aoc.day10
-    (:require
-     [aoc.helpers :refer [read-input-lines]]
-     [clojure.string :as str]))
+  (:require
+   [aoc.helpers :refer [read-input-lines]]
+   [clojure.string :as str]))
 
 (def open->close 
   {\( \)
