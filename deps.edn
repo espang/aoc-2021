@@ -1,5 +1,10 @@
-{:deps
+{
+ :deps
  {org.clojure/clojure
   {:mvn/version "1.11.0-alpha3"}
   org.clojure/data.priority-map
-  {:mvn/version "1.1.0"}}}
+  {:mvn/version "1.1.0"}}
+ :aliases {:nREPL
+{:extra-deps
+ {nrepl/nrepl {:mvn/version "0.9.0"}}}}
+}
